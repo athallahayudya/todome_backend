@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\SubtaskController;
+use App\Http\Controllers\Api\ProfileController;
 
 
 /* ... */
@@ -32,11 +33,17 @@ Route::middleware('auth:sanctum')->group(function () {
     // Catatan: Rute untuk Halaman Profile (Ringkasan)
     Route::get('/dashboard/summary', [DashboardController::class, 'summary']);
 
+    // Catatan: Rute untuk mendapatkan data profile user
+    Route::get('/profile', [ProfileController::class, 'getProfile']);
+
+    // Catatan: Rute untuk meng-update profile (edit nama, email, password, foto profil)
+    Route::post('/profile', [ProfileController::class, 'updateProfile']);
+
     // Catatan: Rute untuk Halaman Kalender (Tugas per tanggal)
     Route::get('/calendar/tasks', [DashboardController::class, 'calendarTasks']);
 
     // Rute untuk meng-update subtask (mencentang)
-    Route::put('/subtasks/{subtask}', [SubtaskController::class, 'update']);
+    Route::post('/subtasks/{subtask}', [SubtaskController::class, 'update']);
     
     // Rute untuk MENAMBAH subtask ke task yang ADA
     Route::post('/tasks/{task}/subtasks', [SubtaskController::class, 'store']);
